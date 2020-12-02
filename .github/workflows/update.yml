@@ -21,7 +21,10 @@ jobs:
             - name: start build JS File
               run: npm run build
             - name: start JS File
-              run: npm start
+              uses: GabrielBB/xvfb-action@v1
+              with:
+                  working-directory: ./
+                  run: npm start
             - name: Commit Changes
               run: |
                   git config --local user.email "${{ secrets.EMAIL }}"
