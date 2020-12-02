@@ -24,8 +24,8 @@ jobs:
               run: npm start
             - name: Commit Changes
               run: |
-                  git config --local user.email "YOUR_EMAIL"
-                  git config --local user.name "YOUR_USERNAME"
+                  git config --local user.email "secrets.EMAIL"
+                  git config --local user.name "secrets.USERNAME"
                   git add -A
                   git commit -m "update: db.json"
             - name: GitHub Push
