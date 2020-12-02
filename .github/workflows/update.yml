@@ -1,0 +1,35 @@
+name: Auto Update db.json
+
+on:
+    schedule:
+        - cron: '0 05 * * *'
+    push:
+        branches: [master]
+
+jobs:
+    run:
+        runs-on: ubuntu-latest
+        if: "!contains(github.event.head_commit.message, '[ci skip]')"
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Node v14
+              uses: actions/setup-node@v2-beta
+              with:
+                  node-version: '14'
+            - name: node clean install
+              run: npm ci
+            - name: start build JS File
+              run: npm run build
+            - name: start JS File
+              run: npm start
+            - name: Commit Changes
+              run: |
+                  git config --local user.email "YOUR_EMAIL"
+                  git config --local user.name "YOUR_USERNAME"
+                  git add -A
+                  git commit -m "update: db.json"
+            - name: GitHub Push
+              uses: ad-m/github-push-action@v0.5.0
+              with:
+                  github_token: $\{{ secrets.GITHUB_TOKEN }}
+                  directory: '.'
