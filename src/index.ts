@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer'
 import fs from 'fs/promises'
 
 let scrap = async () => {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({ headless: false })
     const page = await browser.newPage()
     await page.goto('https://www.tokopedia.com/emas/harga-hari-ini/')
     const date = await page.$eval('time', el => el.textContent)
@@ -22,7 +22,9 @@ let scrap = async () => {
 
 try {
     const fName = './db.json'
-    let gold = await scrap()
+    let gold = {
+        data: await scrap(),
+    }
     fs.writeFile(fName, JSON.stringify(gold, undefined, 2))
 } catch (err) {
     console.log(err)
