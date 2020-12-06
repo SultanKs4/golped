@@ -13,8 +13,8 @@ let scrap = async () => {
 
     let gold = {
         date: date,
-        buy: price[0],
-        sell: price[1],
+        buy: price[0]?.replace(/^Rp/, ''),
+        sell: price[1]?.replace(/^Rp/, ''),
         lastUpdate: new Date(Date.now()).toUTCString(),
     }
     return gold
