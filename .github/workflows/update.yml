@@ -1,8 +1,6 @@
 name: Auto Update db.json
 
 on:
-    schedule:
-        - cron: '0 05 * * *'
     push:
         branches: [master]
 
